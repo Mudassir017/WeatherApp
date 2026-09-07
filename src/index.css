@@ -1,3 +1,5 @@
+@import 'leaflet/dist/leaflet.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -26,17 +28,7 @@
   --font-suisse-intl: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-roboto-mono: 'Roboto Mono', monospace;
 
-  /* Spacing Base: 4px */
-  --spacing-4: 4px;
-  --spacing-8: 8px;
-  --spacing-12: 12px;
-  --spacing-16: 16px;
-  --spacing-24: 24px;
-  --spacing-32: 32px;
-  --spacing-48: 48px;
-  --spacing-80: 80px;
-
-  /* Border Radii */
+  /* Radii */
   --radius-cards: 16px;
   --radius-buttons: 8px;
   --radius-inputs: 8px;
@@ -54,18 +46,24 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
   body {
     background-color: var(--color-obsidian);
     color: var(--color-pure);
     font-family: var(--font-suisse-intl);
+    overflow-x: hidden;
+    width: 100%;
   }
 
-  /* Display headlines style rule: DM Serif Display at weight 400 (light weight feel) */
   .display-headline {
     font-family: var(--font-lyon-display);
     font-weight: 400;
-    line-height: 0.9;
-    letter-spacing: -0.02em;
+    line-height: 0.95;
+    letter-spacing: -0.025em;
   }
 
   .subheading-lyon {
@@ -108,11 +106,12 @@
     background-color: #ffffff;
     color: #000000;
     border-radius: 8px;
-    padding: 12px 20px;
+    padding: 10px 18px;
     font-weight: 500;
-    font-size: 15px;
+    font-size: 14px;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
   }
@@ -129,7 +128,7 @@
     color: #ffffff;
     border-radius: 8px;
     padding: 10px 18px;
-    font-size: 15px;
+    font-size: 14px;
     transition: all 0.2s ease;
   }
   .btn-ghost-outline:hover {
@@ -142,8 +141,13 @@
     background-color: #000000;
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 8px;
-    padding: 8px 12px 8px 22px;
+    padding: 6px 8px 6px 16px;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  @media (min-width: 640px) {
+    .ai-prompt-input-wrapper {
+      padding: 8px 12px 8px 22px;
+    }
   }
   .ai-prompt-input-wrapper:focus-within {
     border-color: var(--color-iris-gleam);
@@ -152,7 +156,7 @@
 
   /* Sticky Nav header glassmorphism */
   .sticky-glass-nav {
-    background-color: rgba(15, 16, 17, 0.75);
+    background-color: rgba(15, 16, 17, 0.85);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -165,6 +169,9 @@
 
   .dark-map .leaflet-container {
     background: #0f1011 !important;
+    font-family: var(--font-suisse-intl) !important;
+    width: 100% !important;
+    height: 100% !important;
   }
 }
 
@@ -193,29 +200,13 @@
   background: var(--color-iris-gleam);
 }
 
-/* Smooth Entrance Animations */
-@keyframes atmosphericFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-atmospheric {
-  animation: atmosphericFadeIn 1.2s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards;
-}
-
-/* Pulse Glow for Live Radar */
+/* Radar pulse animation */
 @keyframes radarPulse {
   0% {
     box-shadow: 0 0 0 0 rgba(0, 179, 221, 0.6);
   }
   70% {
-    box-shadow: 0 0 0 10px rgba(0, 179, 221, 0);
+    box-shadow: 0 0 0 12px rgba(0, 179, 221, 0);
   }
   100% {
     box-shadow: 0 0 0 0 rgba(0, 179, 221, 0);

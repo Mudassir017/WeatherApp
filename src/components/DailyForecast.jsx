@@ -29,24 +29,21 @@ export default function DailyForecast({ weatherData, unit }) {
     return Math.round(valC);
   };
 
-  const tempUnit = unit === 'F' ? '°F' : '°C';
-
-  // Global Min and Max across all 7 days for range bars
   const allMin = Math.min(...minTemps.map((t) => formatTemp(t)));
   const allMax = Math.max(...maxTemps.map((t) => formatTemp(t)));
   const globalSpan = allMax - allMin === 0 ? 1 : allMax - allMin;
 
   const renderIcon = (iconName) => {
-    const props = { className: "w-5 h-5" };
+    const props = { className: "w-5 h-5 flex-shrink-0" };
     switch (iconName) {
-      case 'Sun': return <Sun className="w-5 h-5 text-amber-300" />;
-      case 'CloudSun': return <CloudSun className="w-5 h-5 text-amber-200" />;
-      case 'CloudRain': return <CloudRain className="w-5 h-5 text-cyan-signal" />;
-      case 'CloudLightning': return <CloudLightning className="w-5 h-5 text-orchid-bloom" />;
-      case 'Snowflake': return <Snowflake className="w-5 h-5 text-pale-iris" />;
-      case 'CloudDrizzle': return <CloudDrizzle className="w-5 h-5 text-cyan-signal" />;
-      case 'CloudFog': return <CloudFog className="w-5 h-5 text-ash" />;
-      default: return <Cloud className="w-5 h-5 text-ash" />;
+      case 'Sun': return <Sun className="w-5 h-5 text-amber-300 flex-shrink-0" />;
+      case 'CloudSun': return <CloudSun className="w-5 h-5 text-amber-200 flex-shrink-0" />;
+      case 'CloudRain': return <CloudRain className="w-5 h-5 text-cyan-signal flex-shrink-0" />;
+      case 'CloudLightning': return <CloudLightning className="w-5 h-5 text-orchid-bloom flex-shrink-0" />;
+      case 'Snowflake': return <Snowflake className="w-5 h-5 text-pale-iris flex-shrink-0" />;
+      case 'CloudDrizzle': return <CloudDrizzle className="w-5 h-5 text-cyan-signal flex-shrink-0" />;
+      case 'CloudFog': return <CloudFog className="w-5 h-5 text-ash flex-shrink-0" />;
+      default: return <Cloud className="w-5 h-5 text-ash flex-shrink-0" />;
     }
   };
 
@@ -57,22 +54,22 @@ export default function DailyForecast({ weatherData, unit }) {
   };
 
   return (
-    <div className="w-full rounded-tile bg-deep-iris/30 border border-white/10 p-6 sm:p-8 text-pure shadow-origin-lg backdrop-blur-xl">
+    <div className="w-full rounded-tile bg-deep-iris/30 border border-white/10 p-5 sm:p-8 text-pure shadow-origin-lg backdrop-blur-xl">
       
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-4 sm:mb-6">
         <div>
-          <span className="font-mono text-xs tracking-mono-wide uppercase text-pale-iris font-medium">
+          <span className="font-mono text-[10px] sm:text-xs tracking-mono-wide uppercase text-pale-iris font-medium">
             EXTENDED 7-DAY OUTLOOK
           </span>
-          <h3 className="subheading-lyon text-2xl sm:text-3xl text-pure tracking-tight font-normal mt-1">
+          <h3 className="subheading-lyon text-2xl sm:text-3xl text-pure tracking-tight font-normal mt-0.5">
             Multi-Day Forecast
           </h3>
         </div>
         
-        <div className="flex items-center gap-2 font-mono text-[11px] text-ash">
-          <Calendar className="w-4 h-4 text-pale-iris" />
-          <span>7-DAY METEO OUTLOOK</span>
+        <div className="flex items-center gap-2 font-mono text-[10px] sm:text-xs text-ash">
+          <Calendar className="w-4 h-4 text-pale-iris hidden xs:inline" />
+          <span>7-DAY OUTLOOK</span>
         </div>
       </div>
 
@@ -84,48 +81,46 @@ export default function DailyForecast({ weatherData, unit }) {
           const cond = getWeatherCondition(codes[idx]);
           const precip = precips[idx] || 0;
 
-          // Calculate temperature visual bar percentages
           const leftPct = ((minT - allMin) / globalSpan) * 100;
           const widthPct = Math.max(((maxT - minT) / globalSpan) * 100, 8);
 
           return (
             <div
               key={dateStr}
-              className="py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-6 hover:bg-white/5 px-3 rounded-2xl transition-colors"
+              className="py-3.5 sm:py-4 grid grid-cols-12 items-center gap-2 sm:gap-4 hover:bg-white/5 px-2 sm:px-3 rounded-2xl transition-colors"
             >
               {/* Day Name */}
-              <div className="w-28 flex items-center gap-2">
-                <span className="font-sans text-base font-semibold text-pure">
+              <div className="col-span-4 sm:col-span-3 flex items-center gap-2">
+                <span className="font-sans text-sm sm:text-base font-semibold text-pure truncate">
                   {getDayLabel(dateStr, idx)}
                 </span>
                 {idx === 0 && (
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-iris-gleam px-1.5 py-0.5 rounded bg-iris-gleam/20 border border-iris-gleam/30">
+                  <span className="font-mono text-[9px] uppercase tracking-wider text-iris-gleam px-1.5 py-0.5 rounded bg-iris-gleam/20 border border-iris-gleam/30 hidden xs:inline">
                     NOW
                   </span>
                 )}
               </div>
 
-              {/* Weather Condition */}
-              <div className="flex items-center gap-3 w-48">
+              {/* Condition Icon & Label */}
+              <div className="col-span-5 sm:col-span-4 flex items-center gap-2 truncate">
                 {renderIcon(cond.icon)}
-                <span className="text-sm font-light text-cloud truncate">
+                <span className="text-xs sm:text-sm font-light text-cloud truncate">
                   {cond.label}
                 </span>
               </div>
 
-              {/* Rain Probability */}
-              <div className="w-20 flex items-center gap-1 font-mono text-xs text-cyan-signal">
-                <Umbrella className="w-3.5 h-3.5" />
+              {/* Rain Chance */}
+              <div className="col-span-3 sm:col-span-1 text-right sm:text-left flex items-center justify-end sm:justify-start gap-1 font-mono text-[11px] text-cyan-signal">
+                <Umbrella className="w-3.5 h-3.5 hidden xs:inline" />
                 <span>{precip}%</span>
               </div>
 
               {/* Temperature Visual Range Bar */}
-              <div className="flex-1 w-full sm:w-auto flex items-center gap-3">
-                <span className="font-mono text-xs text-fog w-8 text-right font-medium">
+              <div className="col-span-12 sm:col-span-4 flex items-center gap-2.5 mt-1 sm:mt-0">
+                <span className="font-mono text-xs text-fog w-7 text-right font-medium">
                   {minT}°
                 </span>
 
-                {/* Range Bar Track */}
                 <div className="relative flex-1 h-2 rounded-full bg-white/10 overflow-hidden">
                   <div
                     className="absolute top-0 bottom-0 rounded-full bg-gradient-to-r from-cyan-signal via-iris-gleam to-orchid-bloom"
@@ -133,7 +128,7 @@ export default function DailyForecast({ weatherData, unit }) {
                   />
                 </div>
 
-                <span className="font-mono text-xs text-pure w-8 font-medium">
+                <span className="font-mono text-xs text-pure w-7 font-medium">
                   {maxT}°
                 </span>
               </div>
