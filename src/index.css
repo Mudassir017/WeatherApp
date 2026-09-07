@@ -1,0 +1,227 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Origin Financial Custom Color Tokens */
+  --color-iris-gleam: #847dff;
+  --color-cyan-signal: #00b3dd;
+  --color-pale-iris: #d1c9ff;
+  --color-deep-iris: #4b49aa;
+  --color-orchid-bloom: #dd90d8;
+  --color-periwinkle: #90b8f0;
+  --color-obsidian: #0f1011;
+  --color-abyss: #090a0b;
+  --color-graphite: #2e2e2e;
+  --color-steel: #3f4041;
+  --color-silver: #cacaca;
+  --color-fog: #6a6b6b;
+  --color-ash: #9f9fa0;
+  --color-cloud: #f5f5f7;
+  --color-pure: #ffffff;
+  --color-void: #000000;
+
+  /* Typography */
+  --font-lyon-display: 'DM Serif Display', Georgia, serif;
+  --font-suisse-intl: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-roboto-mono: 'Roboto Mono', monospace;
+
+  /* Spacing Base: 4px */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-48: 48px;
+  --spacing-80: 80px;
+
+  /* Border Radii */
+  --radius-cards: 16px;
+  --radius-buttons: 8px;
+  --radius-inputs: 8px;
+  --radius-featurecards: 30px;
+  --radius-categorytiles: 30px;
+  --radius-pillbuttons: 9999px;
+  --radius-eyebrow: 1440px;
+
+  /* Surface Levels */
+  --surface-obsidian-canvas: #0f1011;
+  --surface-abyss: #090a0b;
+  --surface-graphite-card: #2e2e2e;
+  --surface-steel-hover: #3f4041;
+  --surface-silver-inverted: #cacaca;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-obsidian);
+    color: var(--color-pure);
+    font-family: var(--font-suisse-intl);
+  }
+
+  /* Display headlines style rule: DM Serif Display at weight 400 (light weight feel) */
+  .display-headline {
+    font-family: var(--font-lyon-display);
+    font-weight: 400;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+  }
+
+  .subheading-lyon {
+    font-family: var(--font-lyon-display);
+    font-weight: 400;
+    line-height: 1.1;
+  }
+}
+
+@layer components {
+  /* Glassmorphism nav button */
+  .nav-glass-btn {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 8px 14px;
+    transition: all 0.2s ease;
+  }
+  .nav-glass-btn:hover {
+    background-color: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+
+  /* Pill chip label for promo eyebrow */
+  .pill-chip-label {
+    background-color: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 1440px;
+    padding: 6px 16px;
+    color: #fafafa;
+    font-family: var(--font-roboto-mono);
+    font-size: 11px;
+    letter-spacing: 0.182em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* Primary action button: White fill, black text */
+  .btn-primary-action {
+    background-color: #ffffff;
+    color: #000000;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-weight: 500;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .btn-primary-action:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-1px);
+    box-shadow: rgba(255, 255, 255, 0.15) 0px 4px 12px;
+  }
+
+  /* Ghost outline button */
+  .btn-ghost-outline {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 15px;
+    transition: all 0.2s ease;
+  }
+  .btn-ghost-outline:hover {
+    border-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  /* AI Prompt Input field styling */
+  .ai-prompt-input-wrapper {
+    background-color: #000000;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 8px 12px 8px 22px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .ai-prompt-input-wrapper:focus-within {
+    border-color: var(--color-iris-gleam);
+    box-shadow: 0 0 0 2px rgba(132, 125, 255, 0.25);
+  }
+
+  /* Sticky Nav header glassmorphism */
+  .sticky-glass-nav {
+    background-color: rgba(15, 16, 17, 0.75);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* Leaflet Map Dark Tile Filter Overrides */
+  .dark-map .leaflet-tile {
+    filter: brightness(0.7) invert(1) contrast(1.2) hue-rotate(200deg) saturate(0.4);
+  }
+
+  .dark-map .leaflet-container {
+    background: #0f1011 !important;
+  }
+}
+
+/* Custom Scrollbar for 24h Hourly Forecast */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-iris-gleam);
+}
+
+/* Smooth Entrance Animations */
+@keyframes atmosphericFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-atmospheric {
+  animation: atmosphericFadeIn 1.2s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards;
+}
+
+/* Pulse Glow for Live Radar */
+@keyframes radarPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 179, 221, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 179, 221, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 179, 221, 0);
+  }
+}
+
+.radar-live-dot {
+  animation: radarPulse 2s infinite;
+}
